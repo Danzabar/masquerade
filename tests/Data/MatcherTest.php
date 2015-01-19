@@ -57,7 +57,7 @@ class MatcherTest extends \PHPUnit_Framework_TestCase
 
 		$matches = $this->matcher->getMatches();
 
-		$this->assertEquals(Array('foo' => Array('value' => 'bar')), $matches); 
+		$this->assertEquals(Array('foo' => Array('value' => 'bar', 'raw' => '[foo]')), $matches); 
 	}
 
 	/**
@@ -77,7 +77,7 @@ class MatcherTest extends \PHPUnit_Framework_TestCase
 		$matches = $this->matcher->getMatches();
 
 		$this->assertEquals(
-			Array('foo' => Array('value' => 'bar', 'params' => Array('test' => 'value', 'verbose' => TRUE))),
+			Array('foo' => Array('value' => 'bar', 'params' => Array('test' => 'value', 'verbose' => TRUE), 'raw' => '[foo, test="value", verbose]')),
 			$matches
 		);
 	}

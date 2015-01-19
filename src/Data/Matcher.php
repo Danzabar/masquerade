@@ -92,6 +92,9 @@ class Matcher implements MatchInterface
 				$name = $potential[0];
 
 				$this->formatted[$name] = Array();
+
+				// Add the raw match so we can replace this
+				$this->formatted[$name]['raw'] = $match;
 				
 				// Remove the name from the array
 				unset($potential[0]);
@@ -113,8 +116,6 @@ class Matcher implements MatchInterface
 	 */
 	public function processValues($name, $arr)
 	{
-		$this->formatted[$name] = Array();
-
 		foreach($arr as $key => $value)
 		{
 			if(strstr($value, '=') !== false)
