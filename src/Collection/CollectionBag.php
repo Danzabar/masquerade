@@ -14,12 +14,5 @@ class CollectionBag implements CollectionInterface
 {
 	use Traits\BagTrait;
 
-	/**
-	 * An associative array of values
-	 *
-	 * @var Array
-	 */
-	protected $values;
-
 	
 } // END class CollectionBag

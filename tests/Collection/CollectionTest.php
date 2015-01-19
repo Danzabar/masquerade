@@ -54,6 +54,20 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 		$this->assertEquals(Array(), $this->collection->getMethod());
 	}
 
+	/**
+	 * Test the basic functions of the collection bag
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_gettingSettingCollectionBag()
+	{
+		$this->collection->getMethod()->foo = 'bar';
+
+		$this->assertTrue(isset($this->collection->getMethod()->foo));
+		$this->assertEquals('bar', $this->collection->getMethod()->foo);	
+	}
+
 
 
 

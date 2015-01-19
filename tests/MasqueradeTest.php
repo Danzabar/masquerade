@@ -52,4 +52,18 @@ class MasqueradeTest extends \PHPUnit_Framework_TestCase
 		$this->assertInstanceOf('Masquerade\Collection\CollectionBag', $this->masquerade->collection()->getMethod());
 	}
 
+	/**
+	 * Test the most basic feature, adding a mask
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_addingMask()
+	{
+		$this->masquerade->add('test', 'foo');
+
+		$this->assertEquals('foo', $this->masquerade->collection()->getMethod()->get('test'));
+	}
+
+
 } // END class MasqueradeTest extends \PHPUnit_Framework_TestCase

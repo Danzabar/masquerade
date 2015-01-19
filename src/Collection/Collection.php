@@ -31,6 +31,19 @@ class Collection
 	}
 
 	/**
+	 * Adds a new collection entry
+	 *
+	 * @return Collection
+	 * @author Dan Cox
+	 */
+	public function add($key, $value)
+	{
+		$this->method->add($key, $value);
+
+		return $this;
+	}
+
+	/**
 	 * Gets the value of method
 	 *
 	 * @return Object

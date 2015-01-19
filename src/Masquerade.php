@@ -40,5 +40,18 @@ class Masquerade
 		return $this->collection;
 	}
 
+	/**
+	 * Adds a value of mixed inheritance to the mask system
+	 *
+	 * @return Masquerade
+	 * @author Dan Cox
+	 */
+	public function add($key, $value)
+	{
+		$this->collection->add($key, $value);
+
+		return $this;
+	}
+
 	
 } // END class Masquerade

@@ -8,23 +8,28 @@
  */
 Interface CollectionInterface
 {
-	
 	/**
-	 * Every collection method class should have a magic getter
+	 * The get function that will return a single mask value
 	 *
 	 */
-	public function __get($name);
+	public function get($key);
 
 	/**
-	 * A Setter to set values
+	 * Adds a mask into the Collection
 	 *
 	 */
-	public function __set($name, $value);
+	public function add($key, $value);
 
 	/**
-	 * A magic isset to check if they have the values
+	 * Checks if the collection has this key
 	 *
 	 */
-	public function __isset($name);
+	public function has($key);
+
+	/**
+	 * Returns everything the collection has
+	 *
+	 */
+	public function all();
 
 }

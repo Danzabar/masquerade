@@ -7,45 +7,58 @@
  */
 Trait BagTrait
 {
-	
+
 	/**
-	 * Gets a value based on its name
+	 * An array of mapped mask values
+	 *
+	 * @var Array
+	 */
+	protected $values;
+
+	/**
+	 * Returns a single mask value
 	 *
 	 * @return Mixed
 	 * @author Dan Cox
 	 */
-	public function __get($name)
+	public function get($key)
 	{
-		if(array_key_exists($name, $this->values))
-		{
-			return $this->values[$name];
-		}
-
-		return NULL;
+		return $this->values[$key];
 	}
 
 	/**
-	 * Sets a value
+	 * Adds a mask
 	 *
-	 * @return void
+	 * @return $this
 	 * @author Dan Cox
 	 */
-	public function __set($name, $value)
-	{	
-		$this->values[$name] = $value;
+	public function add($key, $value)
+	{
+		$this->values[$key] = $value;
 
 		return $this;
 	}
 
 	/**
-	 * Magic isset method
+	 * Checks if a key exists in the collection
 	 *
 	 * @return Boolean
 	 * @author Dan Cox
 	 */
-	public function __isset($name)
+	public function has($key)
 	{
-		return array_key_exists($name, $this->values);
+		return array_key_exists($key, $this->values);
+	}
+
+	/**
+	 * Returns everything
+	 *
+	 * @return Array
+	 * @author Dan Cox
+	 */
+	public function all()
+	{
+		return $this->values;
 	}
 
 }
