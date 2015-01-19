@@ -1,6 +1,7 @@
 <?php namespace Masquerade;
 
-use Masquerade\Collection\Collection;
+use Masquerade\Collection\Collection,
+	Masquerade\Data\Matcher;
 
 /**
  * The control class, can be used to setup configuration.
@@ -19,14 +20,22 @@ class Masquerade
 	protected $collection;
 
 	/**
+	 * An instance of a MatchInterface enabled class
+	 *
+	 * @var Object
+	 */
+	protected $matcher;
+
+	/**
 	 * Set up the class vars
 	 *
 	 * @return void
 	 * @author Dan Cox
 	 */
-	public function __construct($colMethod = NULL)
+	public function __construct($colMethod = NULL, $matcher = NULL)
 	{
 		$this->collection = new Collection($colMethod);
+		$this->matcher = (!is_null($matcher) ? $matcher : new Matcher);
 	}
 
 	/**
