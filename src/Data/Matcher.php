@@ -90,6 +90,9 @@ class Matcher implements MatchInterface
 		$this->search();
 
 		$this->replacement = new Replacement($this->formatted, $this->str);
+		$this->replacement->replace();
+		
+		return $this->replacement->getStr();
 	}
 
 	/**

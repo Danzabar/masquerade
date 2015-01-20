@@ -1,5 +1,6 @@
 <?php namespace Masquerade\Data;
 
+use SuperClosure\Serializer;
 
 /**
  * The replacement class deals with replacing matched masks with actual content
@@ -25,6 +26,13 @@ class Replacement
 	protected $str;
 
 	/**
+	 * Instance of the serialize object
+	 *
+	 * @var Object
+	 */
+	protected $serializer;
+
+	/**
 	 * Loads matches
 	 *
 	 * @return void
@@ -32,6 +40,7 @@ class Replacement
 	 */
 	public function __construct(Array $matches = Array(), $str)
 	{
+		$this->serializer = new Serializer;
 		$this->matches = $matches;
 		$this->str = $str;
 	}
@@ -77,8 +86,20 @@ class Replacement
 				break;
 			case 'object':
 				// Run the closure
+				return $this->closureExtract($match);
 				break;
 		}
+	}
+
+	/**
+	 * undocumented function
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function closureExtract(Array $match)
+	{
+		return call_user_func_array($match['value'], $match['params']);	
 	}
 
 	/**

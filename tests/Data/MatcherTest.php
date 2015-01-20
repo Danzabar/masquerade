@@ -39,6 +39,17 @@ class MatcherTest extends \PHPUnit_Framework_TestCase
 
 		// Add a basic mask
 		$this->collection->add('foo', 'bar');
+
+		// Add a closure
+		$this->collection->add('zim', function($value = '') {
+			
+			if($value == '')
+			{
+				return 'no value';
+			}
+
+			return "$value value set";
+		});
 	}
 
 	/**
@@ -80,6 +91,40 @@ class MatcherTest extends \PHPUnit_Framework_TestCase
 			Array('foo' => Array('value' => 'bar', 'params' => Array('test' => 'value', 'verbose' => TRUE), 'raw' => '[foo, test="value", verbose]')),
 			$matches
 		);
+	}
+
+	/**
+	 * Test the search and replace, uses both matcher and replacement classes
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_basicSearchAndReplace()
+	{
+		$str = '[foo] is here';
+
+		$str = $this->matcher
+				 	->load($str, $this->collection)
+			 		->searchAndReplace();
+
+		$this->assertEquals('bar is here', $str);
+	}
+
+	/**
+	 * Test a search and replace with a closure
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_closureSearchAndReplace()
+	{
+		$str = '[zim, value="hello"]';
+
+		$str = $this->matcher
+					->load($str, $this->collection)
+					->searchAndReplace();
+
+		$this->assertEquals('hello value set', $str);
 	}
 
 } // END class MatcherTest extends \PHPUnit_Framework_TestCase
