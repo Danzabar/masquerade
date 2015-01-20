@@ -1,7 +1,8 @@
 <?php namespace Masquerade\Data;
 
 use Masquerade\Interfaces\MatchInterface,
-	Masquerade\Collection\Collection;
+	Masquerade\Collection\Collection,
+	Masquerade\Data\Replacement;
 
 /**
  * The matcher class matches and formats mask names in strings
@@ -41,6 +42,13 @@ class Matcher implements MatchInterface
 	protected $collection;
 
 	/**
+	 * Instance of the replacement class
+	 *
+	 * @var Object
+	 */
+	protected $replacement;
+
+	/**
 	 * Loads string and collection object
 	 *
 	 * @return Matcher
@@ -69,6 +77,19 @@ class Matcher implements MatchInterface
 		{
 			$this->format();
 		}
+	}
+
+	/**
+	 * Perform a search and replace matches
+	 *
+	 * @return String
+	 * @author Dan Cox
+	 */
+	public function searchAndReplace()
+	{
+		$this->search();
+
+		$this->replacement = new Replacement($this->formatted, $this->str);
 	}
 
 	/**

@@ -62,10 +62,11 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function test_gettingSettingCollectionBag()
 	{
-		$this->collection->getMethod()->foo = 'bar';
+		$this->collection->add('foo', 'bar');
 
-		$this->assertTrue(isset($this->collection->getMethod()->foo));
-		$this->assertEquals('bar', $this->collection->getMethod()->foo);	
+		$this->assertTrue($this->collection->getMethod()->has('foo'));
+		$this->assertEquals('bar', $this->collection->getMethod()->get('foo'));	
+		$this->assertEquals(Array('foo' => 'bar'), $this->collection->getMethod()->all());
 	}
 
 
