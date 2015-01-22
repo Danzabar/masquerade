@@ -7,6 +7,13 @@ The purpose of this is to allow you to write content that is a placeholder for d
 
 I want this to be extendable and fully customisable so whatever your need is, it can be bended a little to fit it, while still being easy to use and configure. 
 
+## Documentation
+
+ - Installation
+ - Collections
+ - Custom Collections
+ - Custom Matcher
+
 This is current Pre-Production so keep an eye out for documentation/updates.
 
 ### Contributing

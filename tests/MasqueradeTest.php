@@ -65,5 +65,20 @@ class MasqueradeTest extends \PHPUnit_Framework_TestCase
 		$this->assertEquals('foo', $this->masquerade->collection()->getMethod()->get('test'));
 	}
 
+	/**
+	 * Test a start to finish run through with a basic string mask
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_runThroughBasicStringMask()
+	{
+		$this->masquerade->add('foo', 'bar');
+
+		$str = $this->masquerade->searchAndReplace('my first mask [foo]');
+		
+		$this->assertEquals('my first mask bar', $str);
+	}
+
 
 } // END class MasqueradeTest extends \PHPUnit_Framework_TestCase

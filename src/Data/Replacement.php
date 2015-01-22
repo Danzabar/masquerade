@@ -1,7 +1,5 @@
 <?php namespace Masquerade\Data;
 
-use SuperClosure\Serializer;
-
 /**
  * The replacement class deals with replacing matched masks with actual content
  *
@@ -40,7 +38,6 @@ class Replacement
 	 */
 	public function __construct(Array $matches = Array(), $str)
 	{
-		$this->serializer = new Serializer;
 		$this->matches = $matches;
 		$this->str = $str;
 	}

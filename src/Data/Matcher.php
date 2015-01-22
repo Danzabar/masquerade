@@ -49,6 +49,17 @@ class Matcher implements MatchInterface
 	protected $replacement;
 
 	/**
+	 * Set up class vars
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function __construct()
+	{
+		$this->formatted = Array();
+	}
+
+	/**
 	 * Loads string and collection object
 	 *
 	 * @return Matcher
@@ -70,13 +81,16 @@ class Matcher implements MatchInterface
 	 */
 	public function search()
 	{
-		preg_match('/[[A-Za-z0-9 ,"=]+?]/', $this->str, $this->matches);		
+		preg_match_all('/\[[^\]]*\]/', $this->str, $this->matches);		
 
 		// Format matches
 		if(!empty($this->matches))
 		{
+			$this->matches = $this->matches[0];
 			$this->format();
 		}
+
+		return $this;
 	}
 
 	/**
@@ -90,6 +104,7 @@ class Matcher implements MatchInterface
 		$this->search();
 
 		$this->replacement = new Replacement($this->formatted, $this->str);
+
 		$this->replacement->replace();
 		
 		return $this->replacement->getStr();
@@ -168,6 +183,17 @@ class Matcher implements MatchInterface
 	public function getMatches()
 	{
 		return $this->formatted;
+	}
+
+	/**
+	 * Returns the matches array
+	 *
+	 * @return Array
+	 * @author Dan Cox
+	 */
+	public function getRawMatches()
+	{
+		return $this->matches;
 	}
 
 } // END class Matcher

@@ -58,8 +58,19 @@ class Masquerade
 	public function add($key, $value)
 	{
 		$this->collection->add($key, $value);
+	}
 
-		return $this;
+	/**
+	 * Uses the matcher and Replacement classes to search for matches and systematically replace them.
+	 *
+	 * @return String
+	 * @author Dan Cox
+	 */
+	public function searchAndReplace($str)
+	{
+		$this->matcher->load($str, $this->collection);
+
+		return $this->matcher->searchAndReplace();
 	}
 
 	

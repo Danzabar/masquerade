@@ -1,7 +1,5 @@
 <?php namespace Masquerade\Traits;
 
-use SuperClosure\Serializer;
-
 /**
  * The Bag trait adds magic getters and setters onto a collection method class,
  * In an easier fashion than writing them for each.

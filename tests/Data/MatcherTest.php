@@ -94,6 +94,48 @@ class MatcherTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
+	 * Test matching in various positions with various keys etc
+	 *
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_aBunchOfMatchCases()
+	{
+		$this->collection->add('test1', 'value');
+		$this->collection->add('test2', 'val');
+		$this->collection->add('s./28', 'weird');
+
+		$str1 = '[test1]';
+		$str2 = '[test1][test2]';
+		$str3 = '[test1] [test2]';
+		$str4 = 'Text first [test1]';
+		$str5 = '[test1] then text, then [test2]';
+		$str6 = '[s./28]';
+		$str7 = 'Text first [s./28]';
+		$str8 = 'Test then value str [test1, value="value"]';
+
+		// Lets get matching!
+		$matches1 = $this->matcher->load($str1, $this->collection)->search()->getRawMatches();
+		$matches2 = $this->matcher->load($str2, $this->collection)->search()->getRawMatches();
+		$matches3 = $this->matcher->load($str3, $this->collection)->search()->getRawMatches();
+		$matches4 = $this->matcher->load($str4, $this->collection)->search()->getRawMatches();
+		$matches5 = $this->matcher->load($str5, $this->collection)->search()->getRawMatches();
+		$matches6 = $this->matcher->load($str6, $this->collection)->search()->getRawMatches();
+		$matches7 = $this->matcher->load($str7, $this->collection)->search()->getRawMatches();
+		$matches8 = $this->matcher->load($str8, $this->collection)->search()->getRawMatches();
+
+		$this->assertEquals(Array('[test1]'), $matches1);
+		$this->assertEquals(Array('[test1]', '[test2]'), $matches2);
+		$this->assertEquals(Array('[test1]', '[test2]'), $matches3);
+		$this->assertEquals(Array('[test1]'), $matches4);	
+		$this->assertEquals(Array('[test1]', '[test2]'), $matches5);
+		$this->assertEquals(Array('[s./28]'), $matches6);
+		$this->assertEquals(Array('[s./28]'), $matches7);
+		$this->assertEquals(Array('[test1, value="value"]'), $matches8);
+	}
+
+	/**
 	 * Test the search and replace, uses both matcher and replacement classes
 	 *
 	 * @return void
