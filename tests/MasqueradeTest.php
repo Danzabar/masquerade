@@ -31,6 +31,20 @@ class MasqueradeTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
+	 * Test the different constructor options
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_Constructor()
+	{
+		$m = new Masquerade(NULL, Array());
+
+		$this->assertInstanceOf('Masquerade\Collection\CollectionBag', $m->collection()->getMethod());
+		$this->assertEquals(Array(), $m->matcher());
+	}
+
+	/**
 	 * Test that the collection is an instance of collection
 	 *
 	 * @return void

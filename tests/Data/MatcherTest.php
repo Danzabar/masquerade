@@ -109,7 +109,7 @@ class MatcherTest extends \PHPUnit_Framework_TestCase
 		$str1 = '[test1]';
 		$str2 = '[test1][test2]';
 		$str3 = '[test1] [test2]';
-		$str4 = 'Text first [test1]';
+		$str4 = 'Text [nomask] first [test1]';
 		$str5 = '[test1] then text, then [test2]';
 		$str6 = '[s./28]';
 		$str7 = 'Text first [s./28]';

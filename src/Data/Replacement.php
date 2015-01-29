@@ -1,5 +1,7 @@
 <?php namespace Masquerade\Data;
 
+use Masquerade\Exceptions;
+
 /**
  * The replacement class deals with replacing matched masks with actual content
  *
@@ -86,6 +88,8 @@ class Replacement
 				return $this->closureExtract($match);
 				break;
 		}
+
+		throw new Exceptions\UnexpectedMaskValue($match['value'], $match['raw']);
 	}
 
 	/**

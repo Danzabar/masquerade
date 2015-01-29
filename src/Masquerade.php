@@ -50,6 +50,17 @@ class Masquerade
 	}
 
 	/**
+	 * Returns the Matcher instance
+	 *
+	 * @return Matcher
+	 * @author Dan Cox
+	 */
+	public function matcher()
+	{
+		return $this->matcher;
+	}
+
+	/**
 	 * Adds a value of mixed inheritance to the mask system
 	 *
 	 * @return Masquerade

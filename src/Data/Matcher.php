@@ -141,8 +141,9 @@ class Matcher implements MatchInterface
 				$this->processValues($name, $potential);
 			
 			} else {
+				
 				// This isnt a mask
-				unset($this->matches[$key]);	
+				unset($this->matches[$key]);
 			}
 		}	
 	}
@@ -193,6 +194,9 @@ class Matcher implements MatchInterface
 	 */
 	public function getRawMatches()
 	{
+		// Reorder array incase any have been removed.
+		$this->matches = array_values($this->matches);
+
 		return $this->matches;
 	}
 

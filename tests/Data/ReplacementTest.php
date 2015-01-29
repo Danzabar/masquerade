@@ -27,6 +27,13 @@ class ReplacementTest extends \PHPUnit_Framework_TestCase
 	protected $matches_closure;
 
 	/**
+	 * An array containing a misformed match
+	 *
+	 * @var Array
+	 */
+	protected $misformed_mask;
+
+	/**
 	 * Set up test env
 	 *
 	 * @return void
@@ -35,6 +42,9 @@ class ReplacementTest extends \PHPUnit_Framework_TestCase
 	public function setUp()
 	{
 		$this->matches_simple = ['foo' => Array('value' => 'bar', 'raw' => '[foo]')];
+
+		// A misformed mask
+		$this->misformed_mask = ['foo' => Array('value' => Array(), 'raw' => '[foo]')];
 	}
 
 	/**
@@ -51,6 +61,21 @@ class ReplacementTest extends \PHPUnit_Framework_TestCase
 		$replacement->replace();
 
 		$this->assertEquals('There will be bar', $replacement->getStr());
+	}
+
+	/**
+	 * Test throwing exception when an invalid mask value is used
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_throwExceptionOnInvalidMaskValue()
+	{
+		$this->setExpectedException('Masquerade\Exceptions\UnexpectedMaskValue');
+		$str = 'There will not be [foo]';
+
+		$replacement = new Replacement($this->misformed_mask, $str);
+		$replacement->replace();
 	}
 
 } // END class ReplacementTest extends \PHPUnit_Framework_TestCase
