@@ -84,8 +84,9 @@ class Replacement
 				return $match['value'];
 				break;
 			case 'object':
-				// Run the closure
-				return $this->closureExtract($match);
+				if(get_class($match['value']) == 'Closure') {
+					return $this->closureExtract($match);
+				}
 				break;
 		}
 

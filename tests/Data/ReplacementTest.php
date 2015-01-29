@@ -78,4 +78,27 @@ class ReplacementTest extends \PHPUnit_Framework_TestCase
 		$replacement->replace();
 	}
 
+	/**
+	 * Testing the different outcomes between a class and a closure
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_differenceBetweenClassAndClosureObject()
+	{
+		$closure = function() 
+		{
+			return 'closure';
+		};
+
+		$class = new Replacement(Array(), '');
+
+		// They should both be objects
+		$this->assertEquals('object', gettype($closure));
+		$this->assertEquals('object', gettype($class));
+
+		$this->assertTrue($closure instanceOf Closure);
+		$this->assertFalse($class instanceOf Closure);
+	}
+
 } // END class ReplacementTest extends \PHPUnit_Framework_TestCase
