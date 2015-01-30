@@ -24,6 +24,21 @@ To add a value to the collection you can use the `Masquerade` classes `add` meth
 		return 'this is the value';
 	});
 
+	// Add a class
+	$masks->add('test', new TestClass);
+
+### Class Replacement
+
+Classes work a bit differently, you can use them in two ways, heres the two ways you can call a method of a class:
+
+	[class.method, params]
+
+Or,
+
+	[class, method="method", params]
+
+!Currently you cannot use class properties!.
+
 ### Using the replace
 
 Now we have a mask loaded into the collection we can use the `searchAndReplace` method to search through a string and replace any masks it finds there, the function will return the altered string.
@@ -34,7 +49,7 @@ Now we have a mask loaded into the collection we can use the `searchAndReplace` 
 
 ### Adding parameters
 
-For closure masks we can add parameters into the masks that will be used as params for the closure, consider the following:
+For closure and Class masks we can add parameters into the masks that will be used as params for the closure, consider the following:
 	
 
 	// We add a closure mask that can take 2 params.
