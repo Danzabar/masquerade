@@ -1,6 +1,7 @@
 <?php namespace Masquerade\Data;
 
-use Masquerade\Exceptions;
+use Masquerade\Exceptions,
+	Masquerade\Data\ClassExtraction;
 
 /**
  * The replacement class deals with replacing matched masks with actual content
@@ -84,9 +85,12 @@ class Replacement
 				return $match['value'];
 				break;
 			case 'object':
+				// Extract Closures
 				if(get_class($match['value']) == 'Closure') {
 					return $this->closureExtract($match);
 				}
+				// Extract Classes
+				return $this->classExtract($match);
 				break;
 		}
 
@@ -102,6 +106,19 @@ class Replacement
 	public function closureExtract(Array $match)
 	{
 		return call_user_func_array($match['value'], $match['params']);	
+	}
+
+	/**
+	 * Extracts value from class
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function classExtract(Array $match)
+	{
+		$extract = new ClassExtraction(get_class($match['value']), $match);
+
+		return $extract->extract();		
 	}
 
 	/**

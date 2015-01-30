@@ -125,20 +125,26 @@ class Matcher implements MatchInterface
 			// Seperate by comma
 			$potential = explode(',', $potential);
 
-			// The first value will be the mask name
-			if($this->collection->getMethod()->has($potential[0]))
-			{
-				$name = $potential[0];
+			// Classes can have a dot seperator Class.method
+			$mask = $potential[0];
+			if(strpos($potential[0], '.') !== false) {
+				$parts = explode('.', $potential[0]);
+				$mask = $parts[0];
+			}
 
-				$this->formatted[$name] = Array();
+			// The first value will be the mask name
+			if($this->collection->getMethod()->has($mask))
+			{
+				$this->formatted[$mask] = Array();
 
 				// Add the raw match so we can replace this
-				$this->formatted[$name]['raw'] = $match;
+				$this->formatted[$mask]['raw'] = $match;
+				$this->formatted[$mask]['params'] = Array();
 				
 				// Remove the name from the array
 				unset($potential[0]);
 
-				$this->processValues($name, $potential);
+				$this->processValues($mask, $potential);
 			
 			} else {
 				

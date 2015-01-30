@@ -50,6 +50,9 @@ class MatcherTest extends \PHPUnit_Framework_TestCase
 
 			return "$value value set";
 		});
+
+		// Add a class
+		$this->collection->add('tester', new TestMaskClass);
 	}
 
 	/**
@@ -68,7 +71,7 @@ class MatcherTest extends \PHPUnit_Framework_TestCase
 
 		$matches = $this->matcher->getMatches();
 
-		$this->assertEquals(Array('foo' => Array('value' => 'bar', 'raw' => '[foo]')), $matches); 
+		$this->assertEquals(Array('foo' => Array('value' => 'bar', 'raw' => '[foo]', 'params' => Array())), $matches); 
 	}
 
 	/**
@@ -112,7 +115,6 @@ class MatcherTest extends \PHPUnit_Framework_TestCase
 		$str4 = 'Text [nomask] first [test1]';
 		$str5 = '[test1] then text, then [test2]';
 		$str6 = '[s./28]';
-		$str7 = 'Text first [s./28]';
 		$str8 = 'Test then value str [test1, value="value"]';
 
 		// Lets get matching!
@@ -122,7 +124,6 @@ class MatcherTest extends \PHPUnit_Framework_TestCase
 		$matches4 = $this->matcher->load($str4, $this->collection)->search()->getRawMatches();
 		$matches5 = $this->matcher->load($str5, $this->collection)->search()->getRawMatches();
 		$matches6 = $this->matcher->load($str6, $this->collection)->search()->getRawMatches();
-		$matches7 = $this->matcher->load($str7, $this->collection)->search()->getRawMatches();
 		$matches8 = $this->matcher->load($str8, $this->collection)->search()->getRawMatches();
 
 		$this->assertEquals(Array('[test1]'), $matches1);
@@ -130,8 +131,7 @@ class MatcherTest extends \PHPUnit_Framework_TestCase
 		$this->assertEquals(Array('[test1]', '[test2]'), $matches3);
 		$this->assertEquals(Array('[test1]'), $matches4);	
 		$this->assertEquals(Array('[test1]', '[test2]'), $matches5);
-		$this->assertEquals(Array('[s./28]'), $matches6);
-		$this->assertEquals(Array('[s./28]'), $matches7);
+		$this->assertEquals(Array(), $matches6);
 		$this->assertEquals(Array('[test1, value="value"]'), $matches8);
 	}
 
@@ -167,6 +167,57 @@ class MatcherTest extends \PHPUnit_Framework_TestCase
 					->searchAndReplace();
 
 		$this->assertEquals('hello value set', $str);
+	}
+
+	/**
+	 * Search and replace with a class
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_classSearchAndReplace()
+	{
+		$str = 'The sheep goes [tester.bar]';
+
+		$str = $this->matcher
+					->load($str, $this->collection)
+					->searchAndReplace();
+
+		$this->assertEquals('The sheep goes foo', $str);
+	}
+
+	/**
+	 * Test the other way of specifying methods 
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_classAltSearchAndReplace()
+	{
+		$str = 'The sheep goes [tester, method="bar"]';
+
+		$str = $this->matcher
+					->load($str, $this->collection)
+					->searchAndReplace();
+
+		$this->assertEquals('The sheep goes foo', $str);
+	}
+
+	/**
+	 * Test same as above but with params
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_classWithParamsSearchAndReplace()
+	{
+		$str = 'The sheep goes [tester.foo, extra="extra this"]';
+
+		$str = $this->matcher
+					->load($str, $this->collection)
+					->searchAndReplace();
+
+		$this->assertEquals('The sheep goes fooextra this', $str);
 	}
 
 } // END class MatcherTest extends \PHPUnit_Framework_TestCase
