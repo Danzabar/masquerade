@@ -25,7 +25,7 @@ class UnexpectedMaskValueTest extends \PHPUnit_Framework_TestCase
 			
 			throw new UnexpectedMaskValue(Array(), 'foo');
 
-		} catch (UnexpectedMaskValue $e) {
+		} catch (\Exception $e) {
 
 			$this->assertEquals(Array(), $e->getValue());
 			$this->assertEquals('foo', $e->getMask());

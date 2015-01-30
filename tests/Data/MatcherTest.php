@@ -220,4 +220,21 @@ class MatcherTest extends \PHPUnit_Framework_TestCase
 		$this->assertEquals('The sheep goes fooextra this', $str);
 	}
 
+	/**
+	 * Test an invalid class method
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_classWithInvalidMethod()
+	{
+		$this->setExpectedException('Masquerade\Exceptions\InvalidClassMethodCalled');
+
+		$str = '[tester.fake]';
+
+		$str = $this->matcher
+					->load($str, $this->collection)
+					->searchAndReplace();
+	}
+
 } // END class MatcherTest extends \PHPUnit_Framework_TestCase
