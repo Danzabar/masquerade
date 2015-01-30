@@ -9,9 +9,9 @@ Masquerade replaces mask strings (ie [test]) with values.. You can add classes, 
 
 ## Documentation
 
- - [Installation]()
- - [Collections]()
- - [Custom Collections]()
+ - [Installation](https://github.com/Danzabar/masquerade/blob/master/docs/Installation.md)
+ - [Collections](https://github.com/Danzabar/masquerade/blob/master/docs/Collections.md)
+ - [Custom Collections](https://github.com/Danzabar/masquerade/blob/master/docs/ExtendingCollections.md)
 
 This is current Pre-Production so keep an eye out for documentation/updates.
 
