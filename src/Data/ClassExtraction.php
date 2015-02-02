@@ -55,7 +55,7 @@ class ClassExtraction
 			$parts = explode('.', $name[0]);
 			$method = str_replace(array('[', ']'), '', $parts[1]);
 
-		} elseif($this->match['params']['method']) 
+		} elseif(isset($this->match['params']['method'])) 
 		{
 			$method = $this->match['params']['method'];
 			unset($this->match['params']['method']);	

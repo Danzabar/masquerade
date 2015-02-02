@@ -237,4 +237,22 @@ class MatcherTest extends \PHPUnit_Framework_TestCase
 					->searchAndReplace();
 	}
 
+	/**
+	 * Test that an exception is thrown if no method is given
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_noMethodGiven()
+	{
+		$this->setExpectedException('Masquerade\Exceptions\InvalidClassMethodCalled');
+
+		$str = '[tester]';
+
+		$str = $this->matcher
+					->load($str, $this->collection)
+					->searchAndReplace();
+	}		
+
+
 } // END class MatcherTest extends \PHPUnit_Framework_TestCase
