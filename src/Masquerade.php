@@ -69,6 +69,8 @@ class Masquerade
 	public function add($key, $value)
 	{
 		$this->collection->add($key, $value);
+
+		return $this;
 	}
 
 	/**
